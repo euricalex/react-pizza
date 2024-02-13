@@ -1,6 +1,6 @@
 {
   "name": "my-pizza",
-  "homepage": "https://euricalex.github.io/my-pizza/",
+  "homepage": "https://euricalex.github.io/react-pizza/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
