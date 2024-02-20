@@ -1,0 +1,138 @@
+.button {
+  display: inline-block;
+  background-color: orange;
+  border-radius: 30px;
+  padding: 10px 20px;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color duration ease-in-out, border-color duration ease-in-out;
+  border: 1px solid transparent;
+}
+
+.button,
+.button span {
+  color: #fff;
+}
+
+.button i,
+.button span,
+.button path,
+.button svg {
+  transition: all duration ease-in-out;
+}
+
+.button:hover {
+  background-color: darken(orange, 8%);
+}
+
+.button:active {
+  background-color: darken(orange, 12%);
+  transform: translateY(1px);
+}
+
+.button--circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  border-width: 2px;
+}
+
+.button--black {
+  background-color: black;
+}
+
+.button--black:hover,
+.button--black:active {
+  background-color: lighten(black, 10%);
+}
+
+.button--outline {
+  background-color: #fff;
+  border-color: orange;
+}
+
+.button--outline,
+.button--outline span {
+  color: orange;
+}
+
+.button--outline svg path {
+  fill: orange;
+}
+
+.button--outline:hover {
+  background-color: orange;
+}
+
+.button--outline:hover,
+.button--outline:hover span {
+  color: #fff;
+}
+
+.button--outline:hover svg path {
+  fill: #fff;
+}
+
+.button--outline:active {
+  background-color: darken(orange, 8%);
+}
+
+.button__delimiter {
+  width: 1px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0.25);
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.button--add svg {
+  margin-right: 2px;
+}
+
+.button--add span {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.button--add:hover i {
+  background-color: #fff;
+  color: orange;
+}
+
+.button--add i {
+  display: inline-block;
+  border-radius: 30px;
+  background-color: orange;
+  color: #fff;
+  font-weight: 600;
+  width: 22px;
+  height: 22px;
+  font-style: normal;
+  font-size: 13px;
+  line-height: 22px;
+  position: relative;
+  top: -1px;
+  left: 3px;
+}
+
+.button--cart {
+  display: flex;
+  align-items: center;
+  line-height: 23px;
+  padding: 12px 25px;
+}
+
+.button--cart svg {
+  margin-right: 8px;
+  margin-bottom: 1px;
+}
+
+.button--cart span {
+  font-weight: 600;
+  font-size: 16px;
+}
