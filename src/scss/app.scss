@@ -6,35 +6,76 @@
 
 body {
   background-color: $background;
+  padding: 50px 0;
 }
 
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
   background-color: #fff;
-  margin: 50px auto;
+  margin: 0 auto;
   border-radius: 10px;
   max-width: 1400px;
+  @media (max-width: 645px) {
+    width: calc(100vw - 30px);
+    margin-top: 15px;
+  }
 }
 
 .content {
   padding: 40px 0;
 
   &__title {
-    margin: 35px 0;
+  font-weight: 800;
+  font-size: 38px;
+  margin-top: 60px;
+  margin-bottom: 50px;
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 11px;
+ @media (max-width: 1400px) {
+  grid-template-columns: repeat(3, 1fr);
+ }
+ @media (max-width: 1060px) {
+  grid-template-columns: repeat(2, 1fr);
+ }
+ @media (max-width: 730px) {
+  grid-template-columns: repeat(1, 1fr);
+ }
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
+  
+    @media (max-width: 1274px) {
+      .categories {
+        width: 100%;
+      }
+  
+      ul {
+        width: 100%; /* Используйте ширину 100% для полного заполнения контейнера */
+      }
+    }
+  
+    @media (max-width: 760px) {
+      .categories {
+       ul {
+        li {
+          padding: 8px 20px;
+        }
+       }
+      }
+      flex-direction: column-reverse;
+    }
   }
+
 }
 
 .container {
@@ -104,6 +145,7 @@ body {
         color: darken($color: #b6b6b6, $amount: 50);
       }
     }
+  
   }
 
   &__item {
@@ -143,7 +185,7 @@ body {
         color: #8d8d8d;
       }
     }
-
+   
     &-count {
       display: flex;
       align-items: center;

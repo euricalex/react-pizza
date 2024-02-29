@@ -1,8 +1,10 @@
-
-
 .categories {
   ul {
     display: flex;
+    flex-wrap: wrap;
+@media (max-width: 1245px) {
+  gap: 10px;
+}
 
     li {
       background-color: #f9f9f9;
@@ -12,7 +14,6 @@
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;
-      @include noselect();
 
       &:hover {
         background-color: darken(#f9f9f9, 2%);
