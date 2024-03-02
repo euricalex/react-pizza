@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const SortPopUp = React.memo(function SortPopUp({ items }) {
+const SortPopUp = React.memo(function SortPopUp({ items, value, onClickSort }) {
   const [viseblePopUp, setVisiblePopUp] = useState(false);
-  const [activeItem, setActiveItem] = useState(0);
 
   const sortRef = useRef();
 
-  const activeLabel = items[activeItem].name;
+
 
 
   const handleOutSideClick = (e) => {
@@ -20,7 +19,7 @@ const SortPopUp = React.memo(function SortPopUp({ items }) {
   }, []);
 
   function onSelectItem(index) {
-    setActiveItem(index);
+    onClickSort(index);
     setVisiblePopUp(false);
   }
   return (
@@ -39,15 +38,15 @@ const SortPopUp = React.memo(function SortPopUp({ items }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{activeLabel}</span>
+        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{value.name}</span>
       </div>
       {viseblePopUp && (
         <div className="sort__popup">
           <ul>
           {items.map((item, index) => (
             <li
-              onClick={() => onSelectItem(index)}
-              className={activeItem === index ? "active" : null}
+              onClick={() => onSelectItem(item)}
+              className={value.sortProperty === index.sortProperty ? "active" : null}
               key={index}
             >
               {item.name}

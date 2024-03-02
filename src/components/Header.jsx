@@ -2,6 +2,7 @@ import React from "react";
 import  logoSvg  from "../assets/img/pizza-logo.svg";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import Search from "./Search";
 
 
  export function Header() {
@@ -18,6 +19,7 @@ import { Link } from "react-router-dom";
             </div>
           </div>
           </Link>
+          <Search />
           <div className="header__cart">
           <Link to="./cart">
           <Button className="button--cart">

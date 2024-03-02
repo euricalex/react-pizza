@@ -3,22 +3,27 @@ import React from "react";
 // import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components";
-import { Cart, Home, NotFound } from "./pages";
+import { Cart, Home, NotFoundBlock } from "./pages";
 
 
 // import { setPizzaz } from "./redux/actions/pizzaz";
+export const SearchContext = React.createContext();
 
 function App() {
+  const [searchValue, setSearchValue]= React.useState('');
+
   return (
     <div className="wrapper">
-      <Header />
+      <SearchContext.Provider value={{searchValue, setSearchValue}}>
+      <Header  />
       <div className="content">
         <Routes>
-          <Route   path="/" element={<Home />} />
+          <Route   path="/" element={<Home  />} />
           <Route  path="/cart" element={<Cart />} />
-          <Route  path="*" element={<NotFound />} />
+          <Route  path="*" element={<NotFoundBlock />} />
         </Routes>
       </div>
+      </SearchContext.Provider>
     </div>
   );
 }

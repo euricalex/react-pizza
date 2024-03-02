@@ -1,12 +1,12 @@
 import Home from "./Home";
 import Cart from "./Cart";
 import PizzaBlock from "../components/PizzaBlock";
-import NotFound from "./NotFound"
+import NotFoundBlock from "../components/NotFoundBlock"
 
 export {
     Home,
     Cart,
     PizzaBlock,
-    NotFound
+    NotFoundBlock
 
 }
