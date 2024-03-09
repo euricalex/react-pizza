@@ -1,12 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-// import { thunk } from 'redux-thunk';
-import rootReducer from "./reducers";
+import { configureStore } from '@reduxjs/toolkit'
+import filterSlice from './slices/filterSlice'
+import pizzasSlice from './slices/pizzasSlice'
 
-// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = configureStore({
-  reducer: rootReducer,
-  // composeEnhancer(applyMiddleware(thunk))
-});
 
-export default store;
+export const store = configureStore({
+  reducer: {
+    filter: filterSlice,
+    pizzas: pizzasSlice
+  }
+})

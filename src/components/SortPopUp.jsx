@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-
-const SortPopUp = React.memo(function SortPopUp({ items, value, onClickSort }) {
+import { setSort } from "../redux/slices/filterSlice";
+import { useDispatch, useSelector } from "react-redux";
+export const sortItems = [
+  { name: "популярности", sortProperty: "rating" },
+  { name: "цене", sortProperty: "price" },
+  { name: "алфавиту", sortProperty: "title" },
+];
+function SortPopUp() {
   const [viseblePopUp, setVisiblePopUp] = useState(false);
-
+const dispatch = useDispatch();
+const sort = useSelector((store) => store.filter.sort)
   const sortRef = useRef();
-
-
-
 
   const handleOutSideClick = (e) => {
     if (sortRef.current && !sortRef.current.contains(e.target)) {
@@ -18,14 +22,11 @@ const SortPopUp = React.memo(function SortPopUp({ items, value, onClickSort }) {
     document.body.addEventListener("click", handleOutSideClick);
   }, []);
 
-  function onSelectItem(index) {
-    onClickSort(index);
-    setVisiblePopUp(false);
-  }
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
-        <svg className={viseblePopUp ? 'rotated' : ''}
+        <svg
+          className={viseblePopUp ? "rotated" : ""}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -38,25 +39,29 @@ const SortPopUp = React.memo(function SortPopUp({ items, value, onClickSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{value.name}</span>
+        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{sort.name}</span>
       </div>
       {viseblePopUp && (
         <div className="sort__popup">
           <ul>
-          {items.map((item, index) => (
-            <li
-              onClick={() => onSelectItem(item)}
-              className={value.sortProperty === index.sortProperty ? "active" : null}
-              key={index}
-            >
-              {item.name}
-            </li>
-                ))}
-      
+            {sortItems.map((item, index) => (
+              <li
+                onClick={() => {
+                  dispatch(setSort(item));
+                  setVisiblePopUp(false);
+                }}
+                className={
+                  sort.sortProperty === index.sortProperty ? "active" : null
+                }
+                key={index}
+              >
+                {item.name}
+              </li>
+            ))}
           </ul>
         </div>
       )}
     </div>
   );
-})
+}
 export default SortPopUp;
