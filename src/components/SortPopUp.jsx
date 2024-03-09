@@ -1,29 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { setSort } from "../redux/slices/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+
+
 export const sortItems = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
 ];
+
+
 function SortPopUp() {
-  const [viseblePopUp, setVisiblePopUp] = useState(false);
+  const [viseblePopUp, setVisiblePopUp] = React.useState(false);
 const dispatch = useDispatch();
 const sort = useSelector((store) => store.filter.sort)
-  const sortRef = useRef();
 
-  const handleOutSideClick = (e) => {
-    if (sortRef.current && !sortRef.current.contains(e.target)) {
-      setVisiblePopUp(false);
-    }
-  };
+  const sortRef = React.useRef();
+  React.useEffect(() => {
+    const handleClickOutside = (e) => {
+      if(!sortRef.current.contains(e.target)) {
+        setVisiblePopUp(false);
+      }
+   
+     }
+     document.body.addEventListener('click', handleClickOutside);
+     return () => {
+      document.body.removeEventListener('click', handleClickOutside)
+     }
+  }, [])
 
-  useEffect(() => {
-    document.body.addEventListener("click", handleOutSideClick);
-  }, []);
 
   return (
-    <div ref={sortRef} className="sort">
+    <div ref={sortRef}  className="sort">
       <div className="sort__label">
         <svg
           className={viseblePopUp ? "rotated" : ""}

@@ -4,7 +4,6 @@ import qs from "qs";
 import { Categories, SortPopUp, PizzaBlock } from "../components";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
-// import { SearchContext } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
 import { setPizzas } from "../redux/slices/pizzasSlice";
@@ -38,7 +37,7 @@ function Home() {
       })
       .catch((err) => console.error(err, "No Pizzas"));
   };
-
+// Парсим параметры при первом рендере
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -61,7 +60,7 @@ function Home() {
       fetchPizzas();
     }
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
+// Если изменили параметры и был первый рендер
   React.useEffect(() => {
     if (!isMounted.current) {
       const queryString = qs.stringify({
