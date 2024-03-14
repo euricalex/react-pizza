@@ -22,6 +22,11 @@ function Home() {
 
   const [isloading, setIsLoading] = React.useState(true);
 
+  React.useEffect(() => {
+    fetchPizzas();
+  }, []); // Пустой массив зависимостей означает, что этот эффект будет вызван только один раз при монтировании компонента
+  
+
   const fetchPizzas = () => {
     setIsLoading(true);
     const search = searchValue ? `&search=${searchValue}` : "";
