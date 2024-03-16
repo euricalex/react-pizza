@@ -25,6 +25,7 @@ body {
 .content {
   padding: 40px 0;
 
+
   &__title {
   font-weight: 800;
   font-size: 38px;
@@ -46,6 +47,19 @@ body {
  @media (max-width: 730px) {
   grid-template-columns: repeat(1, 1fr);
  }
+  }
+  .content-error-info {
+margin: 100px auto;
+width: 500px;
+text-align: center;
+h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+p {
+  font-size: 20px;
+}
   }
 
   &__top {

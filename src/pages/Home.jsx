@@ -1,12 +1,11 @@
 import React from "react";
-import axios from "axios";
 import qs from "qs";
 import { Categories, SortPopUp, PizzaBlock } from "../components";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
-import { setPizzas } from "../redux/slices/pizzasSlice";
+import { fetchPizzas } from "../redux/slices/pizzasSlice";
 import { useNavigate } from "react-router-dom";
 import { sortItems } from "../components/SortPopUp";
 
@@ -18,31 +17,17 @@ function Home() {
   const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
   );
-  const items = useSelector((state) => state.pizzas.items);
-
-  const [isloading, setIsLoading] = React.useState(true);
+  const { items, status } = useSelector((state) => state.pizzas);
 
   React.useEffect(() => {
-    fetchPizzas();
+    getPizzas();
   }, []); // Пустой массив зависимостей означает, что этот эффект будет вызван только один раз при монтировании компонента
-  
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
+  const getPizzas = async () => {
     const search = searchValue ? `&search=${searchValue}` : "";
-    axios
-      .get(
-        `https://65de3e3adccfcd562f56a3ca.mockapi.io/items?page=${currentPage}&limit=4&${
-          categoryId > 0 ? `category=${categoryId}&` : ""
-        }&sortby=${sort.sortProperty}&order=asc${search}`
-      )
-      .then((res) => {
-        dispatch(setPizzas(res.data));
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err, "No Pizzas"));
+    dispatch(fetchPizzas({ search, categoryId, sort, currentPage }));
   };
-// Парсим параметры при первом рендере
+  // Парсим параметры при первом рендере
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -62,10 +47,10 @@ function Home() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     if (isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-// Если изменили параметры и был первый рендер
+  // Если изменили параметры и был первый рендер
   React.useEffect(() => {
     if (!isMounted.current) {
       const queryString = qs.stringify({
@@ -88,11 +73,21 @@ function Home() {
         <SortPopUp />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isloading
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items.map((item) => <PizzaBlock key={item.id} {...item} />)}
-      </div>
+      {status === "error" ? (
+        <div className="content-error-info">
+          <h2>Произошла ошибка 😕</h2>
+          <p>
+           К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading"
+            ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+            : items.map((item) => <PizzaBlock key={item.id} {...item} />)}
+        </div>
+      )}
+
       <Pagination onChangePage={onChangePage} />
     </div>
   );
