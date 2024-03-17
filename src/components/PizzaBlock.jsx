@@ -1,13 +1,14 @@
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../redux/slices/CartSlice';
+import { addItem, cartItemSelectorById } from '../redux/slices/CartSlice';
+import { Link } from 'react-router-dom';
+
 
  function PizzaBlock({id, name, imageUrl, types,  category, sizes, price, rating}) {
   const dispatch = useDispatch();
-  const cartItem = useSelector(state => state.cart.items.find(item => item.id === id));
+  const cartItem = useSelector(cartItemSelectorById(id));
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[0]);
   const availableTypes = ['тонкое', 'традиционное', ];
@@ -27,12 +28,13 @@ dispatch(addItem(item))
   return (
 <div className="pizza-block-wrapper">
 <div className="pizza-block">
-    
+<Link  to={`/pizza/${id}`}>
     <img
     className="pizza-block__image"
     src={imageUrl}
     alt="Pizza" 
     />
+    </Link>
     <h4 className="pizza-block__title">{name}</h4>
     <div className="pizza-block__selector">
     <ul>
@@ -77,14 +79,7 @@ dispatch(addItem(item))
   )
 }
 
-PizzaBlock.propTypes = {
-  name: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(PropTypes.number).isRequired,
-  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired,
-}
+
 
 
 export default PizzaBlock

@@ -4,29 +4,30 @@ import { Categories, SortPopUp, PizzaBlock } from "../components";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
-import { fetchPizzas } from "../redux/slices/pizzasSlice";
-import { useNavigate } from "react-router-dom";
+import { selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sortItems } from "../components/SortPopUp";
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-  const { categoryId, sort, currentPage, searchValue } = useSelector(
-    (state) => state.filter
-  );
-  const { items, status } = useSelector((state) => state.pizzas);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzaData);
 
   React.useEffect(() => {
     getPizzas();
-  }, []); // Пустой массив зависимостей означает, что этот эффект будет вызван только один раз при монтировании компонента
+  }, [location]); // Пустой массив зависимостей означает, что этот эффект будет вызван только один раз при монтировании компонента
 
   const getPizzas = async () => {
     const search = searchValue ? `&search=${searchValue}` : "";
     dispatch(fetchPizzas({ search, categoryId, sort, currentPage }));
+
   };
+
   // Парсим параметры при первом рендере
   React.useEffect(() => {
     if (window.location.search) {
@@ -84,7 +85,7 @@ function Home() {
         <div className="content__items">
           {status === "loading"
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-            : items.map((item) => <PizzaBlock key={item.id} {...item} />)}
+            : items.map((item) => <PizzaBlock key={item.id}  {...item} />)}
         </div>
       )}
 

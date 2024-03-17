@@ -14,7 +14,7 @@ export const sortItems = [
 function SortPopUp() {
   const [viseblePopUp, setVisiblePopUp] = React.useState(false);
 const dispatch = useDispatch();
-const sort = useSelector((store) => store.filter.sort)
+const sorting = useSelector((store) => store.filter.sort)
 
   const sortRef = React.useRef();
   React.useEffect(() => {
@@ -48,7 +48,7 @@ const sort = useSelector((store) => store.filter.sort)
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{sort.name}</span>
+        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{sorting.name}</span>
       </div>
       {viseblePopUp && (
         <div className="sort__popup">
@@ -60,7 +60,7 @@ const sort = useSelector((store) => store.filter.sort)
                   setVisiblePopUp(false);
                 }}
                 className={
-                  sort.sortProperty === index.sortProperty ? "active" : null
+                  sorting.sortProperty === index.sortProperty ? "active" : null
                 }
                 key={index}
               >
