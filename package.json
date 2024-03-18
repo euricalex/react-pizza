@@ -8,6 +8,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.28",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
     "axios": "^1.6.7",
     "classnames": "^2.5.1",
     "express": "^4.18.2",
@@ -22,6 +26,7 @@
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
     "redux-thunk": "^3.1.0",
+    "typescript": "^5.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -52,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
     "gh-pages": "^6.1.1",
     "resolve-url-loader": "^5.0.0"
   }

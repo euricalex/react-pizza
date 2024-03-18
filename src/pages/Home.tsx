@@ -6,10 +6,10 @@ import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { sortItems } from "../components/SortPopUp";
 
-function Home() {
+const Home: React.FC = () =>  {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,7 +24,9 @@ function Home() {
 
   const getPizzas = async () => {
     const search = searchValue ? `&search=${searchValue}` : "";
-    dispatch(fetchPizzas({ search, categoryId, sort, currentPage }));
+    dispatch( 
+      // @ts-ignore
+      fetchPizzas({ search, categoryId, sort, currentPage }));
 
   };
 
@@ -64,13 +66,13 @@ function Home() {
     isMounted.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const onChangePage = (num) => {
+  const onChangePage = (num: number) => {
     dispatch(setCurrentPage(num));
   };
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} />
+        <Categories value={categoryId}  />
         <SortPopUp />
       </div>
       <h2 className="content__title">Все пиццы</h2>
@@ -85,11 +87,11 @@ function Home() {
         <div className="content__items">
           {status === "loading"
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-            : items.map((item) => <PizzaBlock key={item.id}  {...item} />)}
+            : items.map((item: any) => <PizzaBlock key={item.id}  {...item} />)}
         </div>
       )}
 
-      <Pagination onChangePage={onChangePage} />
+      <Pagination value={currentPage} onChangePage={onChangePage} />
     </div>
   );
 }

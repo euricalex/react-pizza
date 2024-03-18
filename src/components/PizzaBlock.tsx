@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem, cartItemSelectorById } from '../redux/slices/CartSlice';
 import { Link } from 'react-router-dom';
 
+type PizzaPlockProps = {
+  id: number; name: string; imageUrl: string; types: number[]; category: number; sizes: number[]; price: number; rating: number;
+}
 
- function PizzaBlock({id, name, imageUrl, types,  category, sizes, price, rating}) {
+ const  PizzaBlock: React.FC<PizzaPlockProps> = ({id, name, imageUrl, types,  sizes, price}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(cartItemSelectorById(id));
   const [activeType, setActiveType] = useState(types[0]);

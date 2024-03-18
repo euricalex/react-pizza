@@ -13,12 +13,16 @@ const categoryNames = [
   "Закрытые",
 ];
 
-
- const Categories = React.memo(function Categories({    value }) {
+type CategoriesProps = {
+value: number;
+getCategories?: (categoryNames: string[]) => void;
+}
+ const  Categories:React.FC<CategoriesProps> = ({    value, getCategories }) => {
+  getCategories?.(categoryNames);
   const dispatch = useDispatch();
 
 const onClickCategory = React.useCallback(
-  debounce((id) => {
+  debounce((id: number) => {
     dispatch(setCategoryId(id))
   }, 50 ), []
  
@@ -30,7 +34,7 @@ const onClickCategory = React.useCallback(
       <ul>
        {categoryNames.map((item, index) => (
           <li
-            className={index === 0 && value === 0 ? 'active' : value === index ? 'active' : null}
+            className={index === 0 && value === 0 ? 'active' : value === index ? 'active' : undefined}
             onClick={() => onClickCategory(index)}
             key={index}
           >
@@ -41,5 +45,5 @@ const onClickCategory = React.useCallback(
     </div>
   );
 }
-)
+
 export default Categories;

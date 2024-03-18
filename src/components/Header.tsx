@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 import { cartSelector } from "../redux/slices/CartSlice";
 
 
- export function Header() {
+ export const Header: React.FC = () => {
   const {items, totalPrice} = useSelector(cartSelector);
 const {pathname} = useLocation();
-  const totalCount = items.reduce((sum,item ) => sum + item.count, 0)
+  const totalCount = items.reduce((sum: number, item: any ) => sum + item.count, 0)
      return (
       <div className="header">
         <div className="container">
@@ -28,7 +28,7 @@ const {pathname} = useLocation();
           <div className="header__cart">
           {pathname !== '/cart' &&      
           <Link to="/cart">
-          <Button className="button--cart">
+          <Button className=" button button--cart">
             
             <span>{totalPrice} UA</span>
             <div className="button__delimiter"></div>

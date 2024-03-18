@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { addItem, minusItem, removeItem } from '../redux/slices/CartSlice';
-
-function CartItem({id, name, price, type, size, count, imageUrl}) {
+type CartItemProps = {id: string; name: string; type: string, size: number; price: number; count: number; imageUrl: string}
+const CartItem: React.FC<CartItemProps> = ({id, name, price, type, size, count, imageUrl}) => {
     const dispatch = useDispatch();
 
     const onClickIncrement = () => {

@@ -1,25 +1,31 @@
 import React from "react";
-import { setSort } from "../redux/slices/filterSlice";
+import { selectSort, setSort } from "../redux/slices/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+type SortListItem = {
+  name: string;
+  sortProperty: string;
+}
 
-
-export const sortItems = [
+export const sortItems: SortListItem[] = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
 ];
 
 
-function SortPopUp() {
+const SortPopUp: React.FC = () =>  {
   const [viseblePopUp, setVisiblePopUp] = React.useState(false);
 const dispatch = useDispatch();
-const sorting = useSelector((store) => store.filter.sort)
+const sorting = useSelector(selectSort);
 
-  const sortRef = React.useRef();
+
+
+
+  const sortRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
-    const handleClickOutside = (e) => {
-      if(!sortRef.current.contains(e.target)) {
+    const handleClickOutside:  EventListener = (e) => {
+      if(sortRef.current && !sortRef.current.contains(e.target as HTMLElement)) {
         setVisiblePopUp(false);
       }
    
@@ -29,7 +35,8 @@ const sorting = useSelector((store) => store.filter.sort)
       document.body.removeEventListener('click', handleClickOutside)
      }
   }, [])
-
+ 
+  
 
   return (
     <div ref={sortRef}  className="sort">
@@ -48,7 +55,7 @@ const sorting = useSelector((store) => store.filter.sort)
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{sorting.name}</span>
+        <span onClick={() => setVisiblePopUp(!viseblePopUp)}>{sorting && sorting.name}</span>
       </div>
       {viseblePopUp && (
         <div className="sort__popup">
@@ -60,7 +67,7 @@ const sorting = useSelector((store) => store.filter.sort)
                   setVisiblePopUp(false);
                 }}
                 className={
-                  sorting.sortProperty === index.sortProperty ? "active" : null
+                  sorting.sortProperty === sortItems[index].sortProperty ? "active" : undefined
                 }
                 key={index}
               >
