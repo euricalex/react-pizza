@@ -1,16 +1,16 @@
 import React from "react";
-import { selectSort, setSort } from "../redux/slices/filterSlice";
+import { SortPropertyEnum, selectSort, setSort } from "../redux/slices/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-type SortListItem = {
+type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
 }
 
-export const sortItems: SortListItem[] = [
-  { name: "популярности", sortProperty: "rating" },
-  { name: "цене", sortProperty: "price" },
-  { name: "алфавиту", sortProperty: "title" },
+
+export const sortItems: SortItem[] = [
+  { name: "популярности", sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: "цене", sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: "алфавиту", sortProperty: SortPropertyEnum.NAME_DESC },
 ];
 
 

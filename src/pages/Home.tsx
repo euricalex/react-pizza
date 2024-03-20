@@ -3,21 +3,23 @@ import qs from "qs";
 import { Categories, SortPopUp, PizzaBlock } from "../components";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
-import { useDispatch, useSelector } from "react-redux";
-import { selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
+import { useSelector } from "react-redux";
+import { SortPropertyEnum, selectFilter, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sortItems } from "../components/SortPopUp";
+import { useAppDispatch } from "../redux/store";
+import { add } from "../utils/math";
 
 const Home: React.FC = () =>  {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
-
+add(777, 888);
   React.useEffect(() => {
     getPizzas();
   }, [location]); // Пустой массив зависимостей означает, что этот эффект будет вызван только один раз при монтировании компонента
@@ -25,8 +27,8 @@ const Home: React.FC = () =>  {
   const getPizzas = async () => {
     const search = searchValue ? `&search=${searchValue}` : "";
     dispatch( 
-      // @ts-ignore
-      fetchPizzas({ search, categoryId, sort, currentPage }));
+ 
+      fetchPizzas({ search, categoryId: categoryId.toString(), sort: sort.sortProperty, currentPage: currentPage.toString()  }));
 
   };
 
@@ -40,7 +42,12 @@ const Home: React.FC = () =>  {
       dispatch(
         setFilters({
           ...params,
-          sort,
+          sort: sort || { name: "", sortProperty: SortPropertyEnum.RATING_DESC },
+          searchValue: "", // Замените пустыми строками, если эти свойства не определены
+          categoryId: 0,
+          currentPage: 1,
+          value: "", // Замените пустой строкой, если это свойство не определено
+          
         })
       );
       isSearch.current = true;
