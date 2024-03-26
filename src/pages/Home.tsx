@@ -9,7 +9,7 @@ import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzasSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sortItems } from "../components/SortPopUp";
 import { useAppDispatch } from "../redux/store";
-import { add } from "../utils/math";
+
 
 const Home: React.FC = () =>  {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const Home: React.FC = () =>  {
   const isMounted = React.useRef(false);
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
-add(777, 888);
+
   React.useEffect(() => {
     getPizzas();
   }, [location]); // Пустой массив зависимостей означает, что этот эффект будет вызван только один раз при монтировании компонента

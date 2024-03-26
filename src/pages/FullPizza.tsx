@@ -29,7 +29,7 @@ const FullPizza: React.FC = () => {
   }
   return (
     <div className="container">
-      <img src={pizza.imageUrl} alt="" />
+      <img className="full-pizza-img" src={pizza.imageUrl} alt="" />
       <h2>{pizza.name}</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. At modi

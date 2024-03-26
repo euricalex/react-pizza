@@ -1,9 +1,8 @@
-import React from "react";
+
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components";
 import { Cart, Home, NotFoundBlock } from "./pages";
 import FullPizza from "./pages/FullPizza";
-
 function App() {
   return (
     <div className="wrapper">
