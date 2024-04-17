@@ -11,6 +11,11 @@
   transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
   border: 1px solid transparent;
   @include noselect();
+  @media (max-width: 1295px) {
+  
+      margin-top: 20px;
+    justify-content: center;
+}
 
   &,
   span {
